@@ -144,6 +144,7 @@ def ExtraConfigDpu(cc: ClustersConfig, cfg: ExtraConfigArgs, futures: dict[str, 
     vendor_plugin = init_vendor_plugin(acc, detect_dpu(dpu_node))
     # TODO: For Intel, this configures hugepages. Figure out a better way
     vendor_plugin.setup(acc)
+    logger.info("Finished post config step to start DPU operator on IPU")
 
 
 def ExtraConfigDpuHost(cc: ClustersConfig, cfg: ExtraConfigArgs, futures: dict[str, Future[Optional[host.Result]]]) -> None:
