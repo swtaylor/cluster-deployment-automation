@@ -73,6 +73,7 @@ def main_deploy_iso(cc: ClustersConfig, args: argparse.Namespace, state_file: St
 
 
 def main_deploy(args: argparse.Namespace, cc: ClustersConfig, conf: CdaConfig, state_file: StateFile) -> None:
+    logger.info("+++ main_deploy begin")
     if conf.token_user != "" and conf.token != "":
         auth.RegistryInfo("registry.ci.openshift.org", conf.token_user, conf.token).inject_if_missing()
 
@@ -82,9 +83,11 @@ def main_deploy(args: argparse.Namespace, cc: ClustersConfig, conf: CdaConfig, s
         main_deploy_openshift(cc, args, state_file)
     else:
         main_deploy_iso(cc, args, state_file)
+    logger.info("+++ main_deploy finished")
 
 
 def main_snapshot(args: argparse.Namespace, cc: ClustersConfig, state_file: StateFile) -> None:
+    logger.info("+++ main_snapshot begin")
     args = parse_args()
 
     ais = AssistedInstallerService(cc.version, args.url)
@@ -99,6 +102,7 @@ def main_snapshot(args: argparse.Namespace, cc: ClustersConfig, state_file: Stat
         cs.export_cluster()
     else:
         logger.error(f"Unexpected action {args.actions}")
+    logger.info("+++ main_snapshot finished")
 
 
 def is_yaml(config: str) -> bool:
